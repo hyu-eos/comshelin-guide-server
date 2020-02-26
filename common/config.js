@@ -10,11 +10,11 @@ let dbConfig = {
         connectionLimit : 50
     },
     REAL: { // real server common info
-        host: 'localhost',
-        user: '',
-        password: '',
+        host: '15.164.234.43',
+        user: 'comshelin',
+        password: 'comshelin123!@#',
         port: 3306,
-        database: '',
+        database: 'comshelin',
         connectionLimit : 50
     }
 };

@@ -18,7 +18,7 @@ function sendResult(res, body, error, errorMessage) {
     res.status(200).send(result);
 }
 
-function dbConnect(needAuthorize, req, res, bodyFunction) { // Function(req: request, con: connection)
+function dbConnect(needAuthorize, req, res, bodyFunction) { // bodyFunction: Function(con: connection, callback: function)
     if (needAuthorize && config["isPrivate"] && req.headers["access-key"] !== accessKey) {
         res.status(401).send({
             statusCode: 401,
@@ -27,10 +27,18 @@ function dbConnect(needAuthorize, req, res, bodyFunction) { // Function(req: req
         return;
     }
     mysqlPool.getConnection(function (err, connection) {
-        bodyFunction(connection, function (body, error, errorMessage) {
-            sendResult(res, body, error, errorMessage);
-            connection.release();
-        });
+        if (err) {
+            console.log(err);
+            res.status(500).send({
+                statusCode: 500,
+                errorMessage: "500 Internal Server Error."
+            });
+        } else {
+            bodyFunction(connection, function (body, error, errorMessage) {
+                sendResult(res, body, error, errorMessage);
+                connection.release();
+            });
+        }
     });
 }
 
