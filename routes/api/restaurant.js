@@ -18,9 +18,10 @@ router.post('/', function (req, res, next) {
     dbHandler.dbConnect(req, res, function (conn, callback) {
         conn.query("INSERT INTO restaurant SET ?", value, function (err, rows) {
             if (err) {
+                console.log(err);
                 callback(null, err);
             }
-            callback(rows);
+            callback(null, null);
         });
     });
 });
