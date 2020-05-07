@@ -11,13 +11,10 @@ function dbConnect(req: Request, res: Response, callback) {
             res.status(500).send({
                 statusCode: 500,
                 message: "500 Internal Server Error."
-            })
+            });
+            return;
         }
     });
-}
-
-function getConnection() {
-    mysql.createPool
 }
 
 // function sendResult(res, body, error, errorMessage) {
