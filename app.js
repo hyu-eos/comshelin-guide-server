@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 
 var apiRestaurantRouter = require('./routes/api/restaurant');
 var apiRecipeRouter = require('./routes/api/recipe');
+var apiImagesRouter = require('./routes/api/images');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use('/users', usersRouter);
 
 app.use('/api/restaurant', apiRestaurantRouter);
 app.use('/api/recipe', apiRecipeRouter);
+app.use('/api/imgupload', apiImagesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

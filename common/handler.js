@@ -5,7 +5,13 @@ let mysqlPool = mysql.createPool(config["database"]);
 let accessKey = "D54E8A6ADEB3A3F801D5E6A3FB6F22B0E4E9C66A";
 
 function sendResult(res, body, error, errorMessage) {
-    let resultCode = (error === true) ? 400 : 200;
+    console.log(error);
+    let resultCode;
+    if (error) {
+        resultCode = 400;
+    } else {
+        resultCode = 200;
+    }
     let serverTime = new Date().getTime();
     let result = {
         statusCode: resultCode,
@@ -15,7 +21,7 @@ function sendResult(res, body, error, errorMessage) {
     if (error) {
         result["errorMessage"] = errorMessage ? errorMessage : error;
     }
-    res.status(200).send(result);
+    res.status(resultCode).send(result);
 }
 
 function dbConnect(needAuthorize, req, res, bodyFunction) { // bodyFunction: Function(con: connection, callback: function)
